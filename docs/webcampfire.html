@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<script>
+    const N = 10;
+
+    var light = Array(N).fill(0);
+    let speed = 2;
+    let lightTimer;
+
+    function sum(array){
+        let result = 0, index = 0;
+        for (index in array){
+            result += array[index];
+        }
+        return result;
+    }
+
+    function lamp(){
+        lightTemp = light[0] + (Math.random() - 0.5) * speed;
+
+        light.unshift(Math.max(Math.min(lightTemp, 50), 0));
+        light.pop();
+
+        lightSum = sum(light)/N;
+        lightHue = lightSum / 2 + 10;
+
+        if(lightSum <= 0) clearInterval(lightTimer);
+
+        document.getElementById("main").style.backgroundColor = "hsl(" + lightHue + ", 90%, " + lightSum + "%)";
+    }
+
+    function onClick(){
+        light[0] = 50;
+
+        lightTimer = setInterval(lamp, 20);
+    }
+</script>
+<body style="margin:0;">
+    <div id="main" onclick="onClick()" style="background-color:black;height:100vh; width:100vw;">
+    </div>
+</body>
+</html>
